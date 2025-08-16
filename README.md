@@ -67,7 +67,7 @@
 
 ## 🗂 Project Structure
 
-
+```
 devJobs/
 ├── frontend/ # React frontend
 │ ├── src/
@@ -92,3 +92,5 @@ devJobs/
 │ └── server.js # Main Express server entry
 ├── .env # Environment variables (MongoDB URI, etc.)
 └── README.md
+
+```
