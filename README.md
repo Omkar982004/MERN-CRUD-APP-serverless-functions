@@ -16,6 +16,34 @@
 
 ---
 
+---
+
+## 🗄 MongoDB Database
+
+- **Database**: MongoDB Atlas (Cloud)  
+- **Collection**: `jobs`  
+- **Sample Document**:
+
+```json
+{
+  "_id": "64d8f9b2c123456789abcdef",
+  "title": "Frontend Developer",
+  "type": "Full-Time",
+  "location": "Remote",
+  "description": "We are looking for a talented frontend developer to work with React and Tailwind CSS.",
+  "salary": "$70K - $80K",
+  "company": {
+    "name": "Tech Solutions Ltd.",
+    "description": "A leading tech company specializing in web and mobile applications.",
+    "contactEmail": "hr@techsolutions.com",
+    "contactPhone": "+1-234-567-890"
+  }
+}
+
+```
+
+---
+
 ## 🗂 Backend
 
 - **Stack**: Node.js + Express + MongoDB  
