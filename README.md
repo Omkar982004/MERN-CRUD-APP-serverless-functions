@@ -5,16 +5,13 @@
 ---
 
 ## 🌐 Live Demo
-[Website Link Placeholder]
+**[Live Demo](https://mern-crud-app-serverless-functions.vercel.app/)**
 
 ### Preview Images
-- Homepage: ![Homepage Preview](./preview-homepage.png)  
-- Jobs List: ![Jobs Page Preview](./preview-jobs.png)  
-- Add Job Page: ![Add Job Preview](./preview-add-job.png)  
-- Edit Job Page: ![Edit Job Preview](./preview-edit-job.png)  
-- Job Details Page: ![Job Details Preview](./preview-job-details.png)
-
----
+- Homepage: ![Homepage Preview](./public/images/home.png)  
+- Jobs List: ![Jobs Page Preview](./public/images/alljobs.png)  
+- Add Job Page: ![Add Job Preview](./public/images/jobs.png)  
+- Edit Job Page: ![Edit Job Preview](./public/images/addjob.png)  
 
 ---
 
