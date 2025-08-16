@@ -63,3 +63,32 @@
 - **Clean Modularized Code**: Components and pages are separated for maintainability  
 
 ---
+
+
+## 🗂 Project Structure
+
+
+devJobs/
+├── frontend/ # React frontend
+│ ├── src/
+│ │ ├── pages/ # All five pages: Homepage, Jobs, Job/:id, AddJob, EditJob
+│ │ ├── components/ # Reusable components (e.g., JobCard, Navbar, Footer, FormInput)
+│ │ ├── App.jsx # Main React App
+│ │ └── index.jsx # Entry point
+│ └── tailwind.config.js
+├── backend/ # Express backend (serverless functions)
+│ ├── api/
+│ │ └── jobs/ # Serverless API endpoints for Vercel deployment
+│ ├── config/
+│ │ ├── db.js # MongoDB connection setup
+│ │ └── seed.js # Seed initial job data (BSON format)
+│ ├── controllers/
+│ │ └── jobsController.js # CRUD functions: getJobs, getJob, createJob, updateJob, deleteJob
+│ ├── routes/
+│ │ └── jobs.js # Express routes mapped to controllers
+│ ├── middleware/
+│ │ ├── logger.js # Middleware for logging requests using color-coded output
+│ │ └── errorHandler.js # Global error handling middleware
+│ └── server.js # Main Express server entry
+├── .env # Environment variables (MongoDB URI, etc.)
+└── README.md
