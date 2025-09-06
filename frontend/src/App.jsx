@@ -5,6 +5,7 @@ import {
   createRoutesFromElements,
   RouterProvider,
   Navigate,
+  useLocation
 } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -19,12 +20,6 @@ import LoginForm from "./pages/LoginForm";
 
 // Simple auth check function
 const isAuthenticated = () => !!localStorage.getItem("token");
-
-
-
-import { useEffect } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import { toast } from "react-toastify";
 
 function PrivateRoute({ children }) {
   const location = useLocation();
