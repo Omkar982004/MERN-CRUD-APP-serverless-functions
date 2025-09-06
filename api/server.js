@@ -4,8 +4,6 @@ import {connectDB } from './config/db.js';
 import { seedData } from './config/seed.js';
 import jobs from './routes/jobs.js'
 import cors from 'cors';
-import { connectUserDb } from './config/userdb.js';
-import { seedUserData } from './config/userSeed.js';
 
 dotenv.config();
 
@@ -23,13 +21,8 @@ app.use(express.urlencoded({extended: false}));
 // Connect to DB
 await connectDB();
 
-// Connect to User DB
-await connectUserDb();
-
 // Seed data only if empty
 await seedData();
-
-await seedUserData();
 
 //Route proxy middleware
 app.use('/api/jobs' , jobs);
