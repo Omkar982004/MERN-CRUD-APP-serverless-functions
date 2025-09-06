@@ -23,7 +23,7 @@ const RegisterForm = () => {
     try {
       const res = await registerUser(name, email, password);
 
-      if (res.success) {
+      if (res.userId) {
         toast.success("Registration successful! Please login.");
         navigate("/login");
       } else {
