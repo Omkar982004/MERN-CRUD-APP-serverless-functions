@@ -6,6 +6,7 @@ import jobs from './routes/jobs.js'
 import cors from 'cors';
 import { connectUserDb } from './config/userdb.js';
 import { seedUserData } from './config/userSeed.js';
+import authRoutes from './routes/auth.js';
 
 dotenv.config();
 
@@ -19,6 +20,9 @@ app.use(cors());
 //Body Parser middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
+
+app.use('/api/auth', authRoutes);
 
 // Connect to DB
 await connectDB();
