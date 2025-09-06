@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Route,
   createBrowserRouter,
@@ -21,12 +22,24 @@ const isAuthenticated = () => !!localStorage.getItem("token");
 
 
 
-// Protected route wrapper
+import { useEffect } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+
 function PrivateRoute({ children }) {
-  if (!localStorage.getItem("token")) {
-    toast.error("Unauthorized! Please login to access this page");
-    return <Navigate to="/login" replace />;
+  const location = useLocation();
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (!token) {
+      toast.error("Unauthorized! Please login");
+    }
+  }, [token, location]);
+
+  if (!token) {
+    return <Navigate to="/login" replace state={{ from: location }} />;
   }
+
   return children;
 }
 
