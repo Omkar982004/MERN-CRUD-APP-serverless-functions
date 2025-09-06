@@ -1,23 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import Hero from '../components/Hero';
 import HomeCards from "../components/HomeCards";
 import JobListings from "../components/JobListings";
 import ViewAllJobs from "../components/ViewAllJobs";
-import { getCurrentUser } from "../api/auth";
-const HomePage = () => {
-  const [userName, setUserName] = useState("");
+import { AuthContext } from "../context/AuthContext";
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const user = await getCurrentUser();
-      if (user?.name) setUserName(user.name);
-    };
-    fetchUser();
-  }, []);
+const HomePage = () => {
+  const { user } = useContext(AuthContext); // get user from context
 
   return (
     <>
-      <Hero userName={userName} />
+      <Hero userName={user?.name} />
       <HomeCards />
       <JobListings isHome={true} />
       <ViewAllJobs />
