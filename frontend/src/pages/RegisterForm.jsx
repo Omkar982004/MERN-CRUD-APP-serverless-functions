@@ -18,6 +18,8 @@ const RegisterForm = () => {
       return;
     }
 
+    console.log({ name, email, password });
+
     try {
       const res = await registerUser({ name, email, password });
 
