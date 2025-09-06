@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
 import { toast } from "react-toastify";
-import Spinner from "../components/Spinner"; // optional, if you have a spinner component
+import Spinner from "../components/Spinner";
 
 const JobPage = () => {
   const { id } = useParams();
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const token = localStorage.getItem("token"); // JWT from localStorage
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -29,30 +30,44 @@ const JobPage = () => {
   }, [id]);
 
   const onDeleteClick = async (jobId) => {
+    if (!token) {
+      toast.error("You must be logged in to delete a job");
+      navigate("/login");
+      return;
+    }
+
     const confirmDelete = window.confirm("Are you sure you want to delete this listing?");
     if (!confirmDelete) return;
 
     try {
       const res = await fetch(`/api/jobs/${jobId}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
+      if (res.status === 401) {
+        toast.error("Unauthorized. Please login first");
+        navigate("/login");
+        return;
+      }
+
       if (!res.ok) throw new Error("Failed to delete job");
 
       toast.success("Job deleted successfully");
       navigate("/jobs");
     } catch (err) {
       console.error(err);
-      toast.error("Error deleting job");
+      toast.error(err.message || "Error deleting job");
     }
   };
 
-  if (loading) return <Spinner />; // or simple "Loading..." text
-
+  if (loading) return <Spinner />;
   if (!job) return <p className="text-center py-10">Job not found</p>;
 
   return (
     <>
-      {/* Go Back */}
       <section>
         <div className="container m-auto py-6 px-6">
           <Link to="/jobs" className="text-indigo-500 hover:text-indigo-600 flex items-center">
@@ -82,9 +97,7 @@ const JobPage = () => {
               </div>
             </main>
 
-            {/* Sidebar */}
             <aside>
-              {/* Company Info */}
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <h3 className="text-xl font-bold mb-6">Company Info</h3>
                 <h2 className="text-2xl">{job.company.name}</h2>
@@ -96,7 +109,6 @@ const JobPage = () => {
                 <p className="my-2 bg-indigo-100 p-2 font-bold">{job.company.contactPhone}</p>
               </div>
 
-              {/* Manage */}
               <div className="bg-white p-6 rounded-lg shadow-md mt-6">
                 <h3 className="text-xl font-bold mb-6">Manage Job</h3>
                 <Link
