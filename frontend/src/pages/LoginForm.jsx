@@ -20,7 +20,7 @@ function LoginForm() {
         navigate("/"); // Redirect to home
         setTimeout(() => {
           window.location.reload(); // reload after 2s
-        }, 2);
+        }, 1);
       } else {
         toast.error(res.message || "Login failed");
       }
