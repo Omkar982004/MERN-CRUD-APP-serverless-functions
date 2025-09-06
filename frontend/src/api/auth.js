@@ -1,4 +1,4 @@
-API_BASE = '/api/auth';
+const API_BASE = '/api/auth';
 
 export async function registerUser(name, email, password) {
   const res = await fetch(`${API_BASE}/register`, {
