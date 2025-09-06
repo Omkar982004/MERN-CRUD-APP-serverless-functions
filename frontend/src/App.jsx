@@ -23,7 +23,7 @@ function PrivateRoute({ children }) {
   return isAuthenticated() ? children : <Navigate to="/login" />;
 }
 
-// Redirect logged-in users away from login/register
+// Redirect logged-in users away from login
 function PublicRoute({ children }) {
   return !isAuthenticated() ? children : <Navigate to="/" />;
 }
@@ -33,22 +33,24 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
         {/* Public routes */}
-        <Route path="/login" element={<PublicRoute><LoginForm /></PublicRoute>} />
+        <Route path="login" element={<PublicRoute><LoginForm /></PublicRoute>} />
 
-        {/* Private / protected routes */}
+        {/* Public pages */}
         <Route index element={<HomePage />} />
-        <Route path="/jobs" element={<JobsPage />} />
-        <Route path="/jobs/:id" element={<JobPage />} />
+        <Route path="jobs" element={<JobsPage />} />
+        <Route path="jobs/:id" element={<JobPage />} />
+
+        {/* Protected pages */}
         <Route
-          path="/add-job"
+          path="add-job"
           element={<PrivateRoute><AddJobPage /></PrivateRoute>}
         />
         <Route
-          path="/edit-job/:id"
+          path="edit-job/:id"
           element={<PrivateRoute><EditJobPage /></PrivateRoute>}
         />
 
-        {/* 404 */}
+        {/* Catch-all */}
         <Route path="*" element={<NotFound />} />
       </Route>
     )

@@ -7,7 +7,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token'); // remove JWT
-    navigate('/login'); // redirect to login page
+    navigate('/'); // redirect to login page
   };
 
   const linkClass = ({ isActive }) =>
