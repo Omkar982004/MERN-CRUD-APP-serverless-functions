@@ -1,31 +1,24 @@
-import logo from '../assets/images/logo.png';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { useState , useEffect} from 'react';
+import logo from "../assets/images/logo.png";
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [token, setToken] = useState(localStorage.getItem('token'));
-
-  // Listen to changes in localStorage (for other tabs as well)
-  useEffect(() => {
-    const handleStorage = () => setToken(localStorage.getItem('token'));
-    window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
-  }, []);
+  const token = localStorage.getItem("token"); // check if user is logged in
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    setToken(null); // update state so navbar re-renders
-    navigate('/'); // redirect to homepage
-    toast.info('Logged out successfully');
-
+    localStorage.removeItem("token"); // remove JWT
+    navigate("/"); // redirect to homepage
+    toast.info("Logged out successfully");
+    setTimeout(() => {
+      window.location.reload(); // reload after 2s
+    }, 1);
   };
 
   const linkClass = ({ isActive }) =>
     isActive
-      ? 'bg-black text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
-      : 'text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2';
+      ? "bg-black text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+      : "text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2";
 
   return (
     <nav className="bg-indigo-700 border-b border-indigo-500">
@@ -49,10 +42,7 @@ const Navbar = () => {
                   Jobs
                 </NavLink>
 
-                <NavLink
-                  to="/add-job"
-                  className={linkClass}
-                >
+                <NavLink to="/add-job" className={linkClass}>
                   Add Job
                 </NavLink>
 
