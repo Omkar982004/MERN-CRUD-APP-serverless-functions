@@ -1,17 +1,25 @@
 import logo from '../assets/images/logo.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useState , useEffect } from 'react';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { user, logout } = useContext(AuthContext);
+  const [token, setToken] = useState(localStorage.getItem('token'));
+
+  // Listen to changes in localStorage (for other tabs as well)
+  useEffect(() => {
+    const handleStorage = () => setToken(localStorage.getItem('token'));
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   const handleLogout = () => {
-    logout(); // clears token & user in context
-    toast.info('Logged out successfully');
+    localStorage.removeItem('token');
+    setToken(null); // update state so navbar re-renders
     navigate('/'); // redirect to homepage
+    toast.info('Logged out successfully');
+
   };
 
   const linkClass = ({ isActive }) =>
@@ -41,13 +49,14 @@ const Navbar = () => {
                   Jobs
                 </NavLink>
 
-                {user && (
-                  <NavLink to="/add-job" className={linkClass}>
-                    Add Job
-                  </NavLink>
-                )}
+                <NavLink
+                  to="/add-job"
+                  className={linkClass}
+                >
+                  Add Job
+                </NavLink>
 
-                {user ? (
+                {token ? (
                   <button
                     onClick={handleLogout}
                     className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
