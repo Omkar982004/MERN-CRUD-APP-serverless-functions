@@ -3,7 +3,9 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
+  Navigate,
 } from "react-router-dom";
+
 import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import JobsPage from "./pages/JobsPage";
@@ -11,18 +13,44 @@ import NotFound from "./pages/NotFound";
 import JobPage from "./pages/JobPage";
 import AddJobPage from "./pages/AddJobPage";
 import EditJobPage from "./pages/EditJobPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
+// Simple auth check function
+const isAuthenticated = () => !!localStorage.getItem("token");
+
+// Protected route wrapper
+function PrivateRoute({ children }) {
+  return isAuthenticated() ? children : <Navigate to="/login" />;
+}
+
+// Redirect logged-in users away from login/register
+function PublicRoute({ children }) {
+  return !isAuthenticated() ? children : <Navigate to="/" />;
+}
 
 function App() {
-  
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
+        {/* Public routes */}
+        <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+        <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
+
+        {/* Private / protected routes */}
         <Route index element={<HomePage />} />
         <Route path="/jobs" element={<JobsPage />} />
-        <Route path="/jobs/:id" element={<JobPage />}/>
-        <Route path="/add-job" element={<AddJobPage />}/>
-        <Route path="/edit-job/:id" element={<EditJobPage />} />
+        <Route path="/jobs/:id" element={<JobPage />} />
+        <Route
+          path="/add-job"
+          element={<PrivateRoute><AddJobPage /></PrivateRoute>}
+        />
+        <Route
+          path="/edit-job/:id"
+          element={<PrivateRoute><EditJobPage /></PrivateRoute>}
+        />
+
+        {/* 404 */}
         <Route path="*" element={<NotFound />} />
       </Route>
     )
