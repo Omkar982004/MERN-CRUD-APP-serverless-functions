@@ -29,7 +29,6 @@ function PrivateRoute({ children }) {
   }
   return children;
 }
-]
 
 // Redirect logged-in users away from login
 function PublicRoute({ children }) {
