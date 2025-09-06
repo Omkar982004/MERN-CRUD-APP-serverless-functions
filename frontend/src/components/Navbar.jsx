@@ -4,14 +4,22 @@ import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem('token'); // check if user is logged in
+  const [token, setToken] = useState(localStorage.getItem('token'));
+
+  // Listen to changes in localStorage (for other tabs as well)
+  useEffect(() => {
+    const handleStorage = () => setToken(localStorage.getItem('token'));
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); // remove JWT
+    localStorage.removeItem('token');
+    setToken(null); // update state so navbar re-renders
     navigate('/'); // redirect to homepage
     toast.info('Logged out successfully');
-  };
 
+  };
 
   const linkClass = ({ isActive }) =>
     isActive
