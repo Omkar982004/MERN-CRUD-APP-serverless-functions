@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState , memo} from 'react';
 import {FaMapMarker} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 
@@ -49,4 +49,4 @@ const JobListing = ({job}) => {
     )
 }
 
-export default JobListing;
+export default memo(JobListing); //React.memo prevents unnecessary re-renders if the job prop hasn’t changed.
