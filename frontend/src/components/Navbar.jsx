@@ -1,7 +1,7 @@
 import logo from '../assets/images/logo.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 
 const Navbar = () => {
   const navigate = useNavigate();
