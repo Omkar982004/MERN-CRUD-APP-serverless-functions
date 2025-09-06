@@ -17,6 +17,7 @@ import JobPage from "./pages/JobPage";
 import AddJobPage from "./pages/AddJobPage";
 import EditJobPage from "./pages/EditJobPage";
 import LoginForm from "./pages/LoginForm";
+import RegisterForm from "./pages/RegisterForm";
 
 // Simple auth check function
 const isAuthenticated = () => !!localStorage.getItem("token");
@@ -49,6 +50,7 @@ function App() {
       <Route path="/" element={<MainLayout />}>
         {/* Public routes */}
         <Route path="login" element={<PublicRoute><LoginForm /></PublicRoute>} />
+        <Route path="register" element={<PublicRoute><RegisterForm /></PublicRoute>} />
 
         {/* Public pages */}
         <Route index element={<HomePage />} />
