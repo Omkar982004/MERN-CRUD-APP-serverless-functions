@@ -12,13 +12,6 @@ const Navbar = () => {
     toast.info('Logged out successfully');
   };
 
-  const handleAddJobClick = (e) => {
-    if (!token) {
-      e.preventDefault(); // prevent navigation
-      toast.warning('Please login to add a job');
-      navigate('/login');
-    }
-  };
 
   const linkClass = ({ isActive }) =>
     isActive
@@ -50,7 +43,6 @@ const Navbar = () => {
                 <NavLink
                   to="/add-job"
                   className={linkClass}
-                  onClick={handleAddJobClick}
                 >
                   Add Job
                 </NavLink>

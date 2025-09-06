@@ -31,7 +31,7 @@ const JobPage = () => {
 
   const onDeleteClick = async (jobId) => {
     if (!token) {
-      toast.error("You must be logged in to delete a job");
+      toast.error("Unauthorized. Please login first");
       navigate("/login");
       return;
     }

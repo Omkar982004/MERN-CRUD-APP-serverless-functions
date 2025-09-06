@@ -5,6 +5,7 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
@@ -18,10 +19,17 @@ import LoginForm from "./pages/LoginForm";
 // Simple auth check function
 const isAuthenticated = () => !!localStorage.getItem("token");
 
+
+
 // Protected route wrapper
 function PrivateRoute({ children }) {
-  return isAuthenticated() ? children : <Navigate to="/login" />;
+  if (!localStorage.getItem("token")) {
+    toast.error("Unauthorized! Please login to access this page");
+    return <Navigate to="/login" replace />;
+  }
+  return children;
 }
+]
 
 // Redirect logged-in users away from login
 function PublicRoute({ children }) {
