@@ -67,21 +67,27 @@ const EditJobPage = () => {
     };
 
     try {
+      const token = localStorage.getItem("token"); // 🔑 get token
+
       const res = await fetch(`/api/jobs/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // ✅ include JWT
         },
         body: JSON.stringify(updatedJob),
       });
 
-      if (!res.ok) throw new Error("Failed to update job");
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.message || "Failed to update job");
+      }
 
       toast.success("Job updated successfully");
       navigate(`/jobs/${id}`);
     } catch (err) {
       console.error(err);
-      toast.error("Error updating job");
+      toast.error(err.message || "Something went wrong");
     }
   };
 
@@ -93,11 +99,16 @@ const EditJobPage = () => {
       <div className="container m-auto max-w-2xl py-24">
         <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
           <form onSubmit={submitForm}>
-            <h2 className="text-3xl text-center font-semibold mb-6">Update Job</h2>
+            <h2 className="text-3xl text-center font-semibold mb-6">
+              Update Job
+            </h2>
 
             {/* Job Type */}
             <div className="mb-4">
-              <label htmlFor="type" className="block text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="type"
+                className="block text-gray-700 font-bold mb-2"
+              >
                 Job Type
               </label>
               <select
@@ -117,7 +128,9 @@ const EditJobPage = () => {
 
             {/* Job Title */}
             <div className="mb-4">
-              <label className="block text-gray-700 font-bold mb-2">Job Listing Name</label>
+              <label className="block text-gray-700 font-bold mb-2">
+                Job Listing Name
+              </label>
               <input
                 type="text"
                 id="title"
@@ -132,7 +145,10 @@ const EditJobPage = () => {
 
             {/* Description */}
             <div className="mb-4">
-              <label htmlFor="description" className="block text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="description"
+                className="block text-gray-700 font-bold mb-2"
+              >
                 Description
               </label>
               <textarea
@@ -148,7 +164,10 @@ const EditJobPage = () => {
 
             {/* Salary */}
             <div className="mb-4">
-              <label htmlFor="salary" className="block text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="salary"
+                className="block text-gray-700 font-bold mb-2"
+              >
                 Salary
               </label>
               <select
@@ -175,7 +194,9 @@ const EditJobPage = () => {
 
             {/* Location */}
             <div className="mb-4">
-              <label className="block text-gray-700 font-bold mb-2">Location</label>
+              <label className="block text-gray-700 font-bold mb-2">
+                Location
+              </label>
               <input
                 type="text"
                 id="location"
@@ -192,7 +213,10 @@ const EditJobPage = () => {
             <h3 className="text-2xl mb-5">Company Info</h3>
 
             <div className="mb-4">
-              <label htmlFor="company" className="block text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="company"
+                className="block text-gray-700 font-bold mb-2"
+              >
                 Company Name
               </label>
               <input
@@ -207,7 +231,10 @@ const EditJobPage = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="company_description" className="block text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="company_description"
+                className="block text-gray-700 font-bold mb-2"
+              >
                 Company Description
               </label>
               <textarea
@@ -222,7 +249,10 @@ const EditJobPage = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="contact_email" className="block text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="contact_email"
+                className="block text-gray-700 font-bold mb-2"
+              >
                 Contact Email
               </label>
               <input
@@ -238,7 +268,10 @@ const EditJobPage = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="contact_phone" className="block text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="contact_phone"
+                className="block text-gray-700 font-bold mb-2"
+              >
                 Contact Phone
               </label>
               <input

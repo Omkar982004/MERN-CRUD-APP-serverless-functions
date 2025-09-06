@@ -1,20 +1,15 @@
-import express from 'express';
-import { addJob, deleteJob, getJob, getJobs, updateJob } from '../controllers/jobsController.js';
+import express from "express";
+import { authMiddleware } from "../middleware/auth.js";
+import { addJob, editJob, getJobs, getJobById } from "../controllers/jobController.js";
 
 const router = express.Router();
 
-//Get all jobs
-router.get('/' , getJobs);
+// Public routes → anyone can see jobs
+router.get("/", getJobs);
+router.get("/:id", getJobById);
 
-//Get single jobs
-router.get('/:id' , getJob);
-//Add Job
-router.post('/' , addJob);
-
-//Edit Job
-router.put('/:id' , updateJob);
-
-//Delete Job
-router.delete('/:id' , deleteJob);
+// Protected routes → only logged-in users can add/edit
+router.post("/", authMiddleware, addJob);
+router.put("/:id", authMiddleware, editJob);
 
 export default router;

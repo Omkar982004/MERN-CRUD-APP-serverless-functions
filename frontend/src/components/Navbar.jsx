@@ -1,5 +1,6 @@
 import logo from '../assets/images/logo.png';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -7,7 +8,16 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token'); // remove JWT
-    navigate('/'); // redirect to login page
+    navigate('/'); // redirect to homepage
+    toast.info('Logged out successfully');
+  };
+
+  const handleAddJobClick = (e) => {
+    if (!token) {
+      e.preventDefault(); // prevent navigation
+      toast.warning('Please login to add a job');
+      navigate('/login');
+    }
   };
 
   const linkClass = ({ isActive }) =>
@@ -37,18 +47,21 @@ const Navbar = () => {
                   Jobs
                 </NavLink>
 
+                <NavLink
+                  to="/add-job"
+                  className={linkClass}
+                  onClick={handleAddJobClick}
+                >
+                  Add Job
+                </NavLink>
+
                 {token ? (
-                  <>
-                    <NavLink to="/add-job" className={linkClass}>
-                      Add Job
-                    </NavLink>
-                    <button
-                      onClick={handleLogout}
-                      className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                    >
-                      Logout
-                    </button>
-                  </>
+                  <button
+                    onClick={handleLogout}
+                    className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                  >
+                    Logout
+                  </button>
                 ) : (
                   <>
                     <NavLink to="/login" className={linkClass}>

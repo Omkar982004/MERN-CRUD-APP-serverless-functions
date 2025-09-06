@@ -32,23 +32,26 @@ const AddJobPage = ({ addJobSubmit }) => {
     };
 
     try {
+      const token = localStorage.getItem("token"); // 🔑 get token from storage
+
       const res = await fetch("/api/jobs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, //  include token
         },
         body: JSON.stringify(newJob),
       });
 
       if (!res.ok) {
         const errData = await res.json();
-        throw new Error(errData.error || "Failed to add job");
+        throw new Error(errData.message || "Failed to add job");
       }
 
       const data = await res.json();
       console.log(data);
       toast.success("Job added successfully");
-      navigate("/jobs"); // go back to jobs page
+      navigate("/jobs");
     } catch (err) {
       console.error(err);
       toast.error(err.message || "Something went wrong");
