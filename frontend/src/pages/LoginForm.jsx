@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/auth.js";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
@@ -76,9 +76,6 @@ function LoginForm() {
           </div>
         </div>
       </section>
-
-      {/* Toast container */}
-      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }
