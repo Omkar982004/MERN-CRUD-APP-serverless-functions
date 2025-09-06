@@ -18,6 +18,9 @@ function LoginForm() {
         localStorage.setItem("token", res.token); // Save token
         toast.success("Login successful!");
         navigate("/"); // Redirect to home
+        setTimeout(() => {
+          window.location.reload(); // reload after 2s
+        }, 2);
       } else {
         toast.error(res.message || "Login failed");
       }
@@ -35,7 +38,10 @@ function LoginForm() {
             <h2 className="text-3xl text-center font-semibold mb-6">Login</h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
+                <label
+                  className="block text-gray-700 font-bold mb-2"
+                  htmlFor="email"
+                >
                   Email
                 </label>
                 <input
@@ -50,7 +56,10 @@ function LoginForm() {
               </div>
 
               <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2" htmlFor="password">
+                <label
+                  className="block text-gray-700 font-bold mb-2"
+                  htmlFor="password"
+                >
                   Password
                 </label>
                 <input
