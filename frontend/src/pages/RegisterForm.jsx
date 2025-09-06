@@ -21,7 +21,7 @@ const RegisterForm = () => {
     console.log({ name, email, password });
 
     try {
-      const res = await registerUser({ name, email, password });
+      const res = await registerUser(name, email, password);
 
       if (res.success) {
         toast.success("Registration successful! Please login.");
