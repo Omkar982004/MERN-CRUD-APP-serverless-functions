@@ -33,7 +33,7 @@ jobs:
     - name: Seed database (API only)
       if: matrix.directory == 'api'
       working-directory: api
-      run: node seed.js
+      run: node config/seed.js
 
     - name: Run tests
       working-directory: ${{ matrix.directory }}
