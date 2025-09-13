@@ -72,7 +72,7 @@
   - `PUT /api/jobs/:id` – update an existing job  
   - `DELETE /api/jobs/:id` – delete a job  
 - Serverless functions allow **scalable, on-demand backend execution** without running a dedicated server  
-- Backend code in `backend/api` folder, mapped in Vercel to serverless endpoints  
+- Backend code in `backend/api` folder, mapped in Vercel to serverless endpoints.
 
 ---
 
