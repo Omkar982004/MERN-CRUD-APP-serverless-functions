@@ -1,0 +1,32 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        directory: [ "api", "frontend" ]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: "18"
+
+    - name: Install dependencies
+      working-directory: ${{ matrix.directory }}
+      run: npm install
+
+    - name: Run tests
+      working-directory: ${{ matrix.directory }}
+      run: npm test
