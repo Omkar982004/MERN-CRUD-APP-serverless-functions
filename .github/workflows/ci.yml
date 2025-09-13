@@ -23,9 +23,17 @@ jobs:
       with:
         node-version: "18"
 
+    - name: Set up environment variables
+      run: echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> $GITHUB_ENV
+
     - name: Install dependencies
       working-directory: ${{ matrix.directory }}
       run: npm install
+
+    - name: Seed database (API only)
+      if: matrix.directory == 'api'
+      working-directory: api
+      run: node seed.js
 
     - name: Run tests
       working-directory: ${{ matrix.directory }}
